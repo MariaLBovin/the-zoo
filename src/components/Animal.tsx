@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react'
 import {useParams} from 'react-router-dom'
 import { IAnimal } from '../models/IAnimal'
 import { fetchAnimal } from '../services/animalService'
+import fallbackImg from '../assets/istockphoto-1128826884-612x612.jpg'
 
 export const Animal = () => {
   const [animal, setAnimal] = useState<IAnimal | undefined>()
+
 
     const {id} = useParams<{id:string}>();
 
@@ -67,7 +69,14 @@ export const Animal = () => {
     <>
     <div className='div_singleAnimal'>
     <h3>{animal?.name}</h3>
-    <img src={animal?.imageUrl} alt={animal?.name} style={{ width: '200px', height: 'auto' }}/>
+    <img src={animal?.imageUrl} 
+    alt={animal?.name} 
+    style={{ width: '200px', height: 'auto' }}
+    onError = {(e) => {
+      e.currentTarget.onerror = null;
+      e.currentTarget.src = fallbackImg
+    }}
+    />
     <article className='article_singleAnimal'>{animal?.shortDescription}</article>
     <button onClick ={feedAnimal} disabled={animal?.isFed} >{animal?.isFed ? 'Matad' : 'Mata'}</button>
     </div>

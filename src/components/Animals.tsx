@@ -2,11 +2,14 @@ import { useState, useEffect } from "react"
 import { IAnimal } from "../models/IAnimal"
 import { Link } from "react-router-dom"
 import { fetchAnimals } from "../services/animalService"
+import fallbackImg from '../assets/istockphoto-1128826884-612x612.jpg'
 
 
 export const Animals = () => {
+  console.log('test');
+  
     const [animals, setAnimals] =useState<IAnimal[]>([])
-
+    
     useEffect(() => {
       const fetchData = async () => {
         try {
@@ -47,7 +50,10 @@ export const Animals = () => {
             alt={animal.name} 
             style={{ width: '200px', height: 'auto' }} 
             loading="lazy"
-            
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = fallbackImg;
+            }}
             />
             <Link to={'/animal/' + animal.id}>
               <button>Läs mer</button>
