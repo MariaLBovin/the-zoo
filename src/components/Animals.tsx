@@ -39,9 +39,16 @@ export const Animals = () => {
   return (
     <>
     {animals.map((animal) => (
-        <div key={animal.id}>
+        <div key={animal.id}
+        className={'div_animal ' + (animal.isFed ? 'isFed' : 'isHungry')}
+        >
             <h3>{animal.name}</h3>
-            <img src={animal.imageUrl} alt={animal.name} style={{ width: '200px', height: 'auto' }} />
+            <img src={animal.imageUrl} 
+            alt={animal.name} 
+            style={{ width: '200px', height: 'auto' }} 
+            loading="lazy"
+            
+            />
             <Link to={'/animal/' + animal.id}>
               <button>Läs mer</button>
             </Link>

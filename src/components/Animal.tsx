@@ -48,6 +48,15 @@ export const Animal = () => {
       const dateToString = feedingTime.toISOString()
       
       const feedAnimal :IAnimal = {...animal, isFed: true, lastFed: dateToString};
+
+      const storedData = localStorage.getItem('animalData');
+      
+
+      if (storedData) {
+        const animals: IAnimal[] = JSON.parse(storedData);
+        const updatedAnimals = animals.map((a) => (a.id === feedAnimal.id ? feedAnimal : a));
+        localStorage.setItem('animalData', JSON.stringify(updatedAnimals));
+      }
       setAnimal(feedAnimal) 
       console.log(feedAnimal);
     }
@@ -56,10 +65,13 @@ export const Animal = () => {
 
   return (
     <>
+    <div className='div_singleAnimal'>
     <h3>{animal?.name}</h3>
     <img src={animal?.imageUrl} alt={animal?.name} style={{ width: '200px', height: 'auto' }}/>
-    <div>{animal?.shortDescription}</div>
+    <article className='article_singleAnimal'>{animal?.shortDescription}</article>
     <button onClick ={feedAnimal} disabled={animal?.isFed} >{animal?.isFed ? 'Matad' : 'Mata'}</button>
+    </div>
+    
     </>
   )
 }
