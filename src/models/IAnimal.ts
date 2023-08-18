@@ -3,6 +3,6 @@ export interface IAnimal{
     name: string;
     imageUrl:string;
     shortDescription: string;
-    needsFeeding: boolean
+    isFed: boolean
 
 }

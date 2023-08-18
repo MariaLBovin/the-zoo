@@ -14,9 +14,9 @@ export const Animals = () => {
           const storedData = localStorage.getItem('animalData');
   
           if (storedData) {
-            // Om datan finns i localStorage, använd den
-            setAnimals(JSON.parse(storedData));
-            console.log('data från localStorage');
+            const parsedData = JSON.parse(storedData)
+            setAnimals(parsedData);
+            console.log('data från localStorage', parsedData);
             
           } else {
             // Om datan inte finns i localStorage, hämta från API

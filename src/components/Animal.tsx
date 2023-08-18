@@ -12,13 +12,13 @@ export const Animal = () => {
     const fetchSingleAnimal = async () => {
       try {
         // Hämta djurdata från localStorage om det finns
-        const storedData = localStorage.getItem("animalsData");
+        const storedData = localStorage.getItem("animalData");
         if (storedData) {
           const animals: IAnimal[] = JSON.parse(storedData);
           const singleAnimal = animals.find((animal) => animal.id.toString() === id);
           if (singleAnimal) {
             setAnimal(singleAnimal);
-            console.log('Animal from localStorage');
+            console.log('Animal from localStorage', singleAnimal);
             
           } else {
             console.log("No single animal found in LS");
@@ -42,12 +42,20 @@ export const Animal = () => {
 
   }, [id]);
 
+  const feedingTime = () => {
+    if(animal) {
+      const feedAnimal :IAnimal = {...animal, isFed: true};
+      setAnimal(feedAnimal) 
+    }
+    console.log(animal);
+  }
+
   return (
     <>
     <h3>{animal?.name}</h3>
     <img src={animal?.imageUrl} alt={animal?.name} style={{ width: '200px', height: 'auto' }}/>
     <div>{animal?.shortDescription}</div>
-    <button>Mata</button>
+    <button onClick ={feedingTime} disabled={animal?.isFed}>Mata</button>
     </>
   )
 }
