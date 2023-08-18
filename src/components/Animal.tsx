@@ -42,12 +42,16 @@ export const Animal = () => {
 
   }, [id]);
 
-  const feedingTime = () => {
+  const feedAnimal = () => {
     if(animal) {
-      const feedAnimal :IAnimal = {...animal, isFed: true};
+      const feedingTime = new Date();
+      const dateToString = feedingTime.toISOString()
+      
+      const feedAnimal :IAnimal = {...animal, isFed: true, lastFed: dateToString};
       setAnimal(feedAnimal) 
+      console.log(feedAnimal);
     }
-    console.log(animal);
+    
   }
 
   return (
@@ -55,7 +59,7 @@ export const Animal = () => {
     <h3>{animal?.name}</h3>
     <img src={animal?.imageUrl} alt={animal?.name} style={{ width: '200px', height: 'auto' }}/>
     <div>{animal?.shortDescription}</div>
-    <button onClick ={feedingTime} disabled={animal?.isFed}>Mata</button>
+    <button onClick ={feedAnimal} disabled={animal?.isFed} >{animal?.isFed ? 'Matad' : 'Mata'}</button>
     </>
   )
 }
