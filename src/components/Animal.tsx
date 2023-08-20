@@ -8,7 +8,7 @@ export const Animal = () => {
   const [animal, setAnimal] = useState<IAnimal | undefined>()
 
 
-    const {id} = useParams<{id:string}>();
+  const {id} = useParams<{id:string}>();
 
     useEffect(() => {
     const fetchSingleAnimal = async () => {
@@ -44,15 +44,17 @@ export const Animal = () => {
 
   }, [id]);
 
+  
+
   const feedAnimal = () => {
     if(animal) {
       const feedingTime = new Date();
       const dateToString = feedingTime.toISOString()
-      
+
+
       const feedAnimal :IAnimal = {...animal, isFed: true, lastFed: dateToString};
 
       const storedData = localStorage.getItem('animalData');
-      
 
       if (storedData) {
         const animals: IAnimal[] = JSON.parse(storedData);
@@ -60,11 +62,10 @@ export const Animal = () => {
         localStorage.setItem('animalData', JSON.stringify(updatedAnimals));
       }
       setAnimal(feedAnimal) 
+
       console.log(feedAnimal);
     }
-    
   }
-
   return (
     <>
     <div className='div_singleAnimal'>

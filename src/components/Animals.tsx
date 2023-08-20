@@ -13,7 +13,6 @@ export const Animals = () => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          // Försök hämta datan från localStorage
           const storedData = localStorage.getItem('animalData');
   
           if (storedData) {
@@ -22,22 +21,48 @@ export const Animals = () => {
             console.log('data från localStorage', parsedData);
             
           } else {
-            // Om datan inte finns i localStorage, hämta från API
             const response = await fetchAnimals();
             setAnimals(response);
   
-            // Spara datan i localStorage
             localStorage.setItem('animalData', JSON.stringify(response));
             console.log('data från API');
             
           }
         } catch (error) {
-          console.log('Error fetching and saving data:', error);
+          console.log('kan inte hämta data', error);
         }
       };
   
       fetchData();
     }, []);
+    
+    useEffect(() => {
+      const interval = setInterval(() => {
+        const currentTime = new Date();
+        
+        
+        const updateAnimals = animals.map((animal) => {
+          if(animal.isFed) {
+            const lastFeedingTime = Date.parse(animal.lastFed);
+            //console.log('senaste matning', animal.name, animal.lastFed);
+            
+            //console.log('lastFeedingTime', lastFeedingTime);
+            
+            const timeSinceFed = (currentTime.getTime() - lastFeedingTime) / (1000 * 60 * 60);
+            
+            console.log('timeSinceFed', timeSinceFed);
+            
+            if(timeSinceFed >= 3) {
+              return {...animal, isFed:false}
+            }
+          }
+          return animal
+        });
+        setAnimals(updateAnimals);
+        localStorage.setItem('animalData', JSON.stringify(updateAnimals))
+      }, 5000);
+      return () => clearInterval(interval)
+    }, [animals])
 
   return (
     <>
