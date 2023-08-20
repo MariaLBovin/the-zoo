@@ -13,44 +13,40 @@ export const Animal = () => {
     useEffect(() => {
     const fetchSingleAnimal = async () => {
       try {
-        // Hämta djurdata från localStorage om det finns
         const storedData = localStorage.getItem("animalData");
         if (storedData) {
           const animals: IAnimal[] = JSON.parse(storedData);
           const singleAnimal = animals.find((animal) => animal.id.toString() === id);
           if (singleAnimal) {
             setAnimal(singleAnimal);
-            console.log('Animal from localStorage', singleAnimal);
+            //console.log('djur från localStorage', singleAnimal);
             
           } else {
-            console.log("No single animal found in LS");
+            //console.log("Inget djur hittat i LS");
           }
         } else {
           if(id){
             const apiResponse = await fetchAnimal(id); 
             setAnimal(apiResponse);
-            console.log("Animal from API");
+            //console.log("Djur från  API");
           }
           else {
-            console.log('no id found');
+            //console.log('iget id hittat');
             
           }
         }
       } catch (error) {
-        console.log("Error fetching single animal");
+        //console.log("kan inte hämta single animal");
       }
     };
     fetchSingleAnimal();
 
   }, [id]);
 
-  
-
   const feedAnimal = () => {
     if(animal) {
       const feedingTime = new Date();
       const dateToString = feedingTime.toISOString()
-
 
       const feedAnimal :IAnimal = {...animal, isFed: true, lastFed: dateToString};
 

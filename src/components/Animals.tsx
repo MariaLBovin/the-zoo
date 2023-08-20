@@ -40,12 +40,11 @@ export const Animals = () => {
       const interval = setInterval(() => {
         const currentTime = new Date();
         
-        
         const updateAnimals = animals.map((animal) => {
           if(animal.isFed) {
             const lastFeedingTime = Date.parse(animal.lastFed);
             //console.log('senaste matning', animal.name, animal.lastFed);
-            
+
             //console.log('lastFeedingTime', lastFeedingTime);
             
             const timeSinceFed = (currentTime.getTime() - lastFeedingTime) / (1000 * 60 * 60);
