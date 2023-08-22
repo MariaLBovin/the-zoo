@@ -3,7 +3,7 @@ import { IAnimal } from "../models/IAnimal"
 import { Link } from "react-router-dom"
 import { fetchAnimals } from "../services/animalService"
 import fallbackImg from '../assets/istockphoto-1128826884-612x612.jpg'
-import { updateFeedingTime } from "./timer"
+import { updateFeedingTime } from "../helpers/timer"
 //import { updateFeedingTime } from "./timer"
 
 
@@ -15,11 +15,9 @@ export const Animals = () => {
       const fetchData = async () => {
       console.log('test');
       
-      
         try {
           const storedData = localStorage.getItem('animalData');
           //console.log(storedData);
-          
           if (storedData) {
             const parsedData = JSON.parse(storedData);
             const updateAnimalsFeedingTime = updateFeedingTime(parsedData);
@@ -53,6 +51,7 @@ export const Animals = () => {
   
   return (
     <>
+    <div className="div_animal-wrapper">
     {animals.map((animal) => (
         <div key={animal.id}
         className={'div_animal ' + (animal.isFed ? 'isFed' : 'isHungry')}
@@ -73,6 +72,8 @@ export const Animals = () => {
             </Link>
         </div>
     ))}
+    </div>
+    
     </>
   )
 }

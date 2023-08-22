@@ -7,9 +7,7 @@ import fallbackImg from '../assets/istockphoto-1128826884-612x612.jpg'
 export const Animal = () => {
   const [animal, setAnimal] = useState<IAnimal | undefined>()
 
-
   const {id} = useParams<{id:string}>();
-
     useEffect(() => {
     const fetchSingleAnimal = async () => {
       try {
@@ -20,7 +18,6 @@ export const Animal = () => {
           if (singleAnimal) {
             setAnimal(singleAnimal);
             //console.log('djur från localStorage', singleAnimal);
-            
           } else {
             //console.log("Inget djur hittat i LS");
           }
@@ -32,7 +29,6 @@ export const Animal = () => {
           }
           else {
             //console.log('iget id hittat');
-            
           }
         }
       } catch (error) {
@@ -63,10 +59,11 @@ export const Animal = () => {
     }
   }
 
-  const formatedTime = (isoTime) => {
+  const formatedTime = (isoTime: string) => {
     const date = new Date(isoTime);
     return date.toLocaleString()
   }
+
   return (
     <>
     <div className='div_singleAnimal'>

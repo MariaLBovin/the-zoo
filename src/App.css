@@ -1,26 +1,37 @@
 #root {
   max-width: 1280px;
+  height: 100vh;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+.div_animal-wrapper {
   display: flex;
   flex-wrap: wrap;
+  width: 100vw;
 }
 .div_animal {
   display: flex;
   flex-direction: column;
   margin: 10px;
   border: 1px solid grey;
+  width:25vw;
+  border-radius: 5px;
 }
 .div_singleAnimal {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
+  width: 50vw;
+  border: 1px solid grey;
+  margin: 0 auto 0 auto;
+  padding-bottom: 10px;
 
 }
-.article_singleAnimal {
+p {
   margin: 10px;
 }
 button {
@@ -38,9 +49,20 @@ button {
 button:hover {
   border-color: #646cff;
 }
+img {
+  align-self: center;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+.div_footer {
+  position: absolute;
+  margin-bottom: 0px;
+  width: 100vw;
+  text-align: center;
+}
 .isFed {
-  background-color: green;
+  background-color: rgb(135, 227, 135);
 }
 .isHungry {
-  background-color: red;
+  background-color: rgb(144, 85, 85);
 }
