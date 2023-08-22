@@ -8,15 +8,16 @@ export const updateFeedingTime = (animals : IAnimal[]) => {
 
             //console.log('lastFeedingTime', lastFeedingTime);
             
-            const timeSinceFed = (currentTime.getTime() - lastFeedingTime) / (1000 * 60);
+            const timeSinceFed = (currentTime.getTime() - lastFeedingTime) / (1000 * 60*60);
             
             //console.log('timeSinceFed', timeSinceFed);
 
-            if (timeSinceFed >= 2) {
+            if (timeSinceFed >= 4) {
               return {...animal, isFed: false, feedingMessage: `${animal.name} behöver matas omgående`}
             
-            } else if(timeSinceFed >= 1) {
+            } else if(timeSinceFed >= 3) {
               return {...animal, isFed:false}
+              
             } else {
               return {...animal, isFed: true, feedingMessage:`${animal.name} är mätt`}
             }

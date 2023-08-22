@@ -54,12 +54,7 @@ img {
   margin-bottom: 10px;
   border-radius: 5px;
 }
-.div_footer {
-  position: absolute;
-  margin-bottom: 0px;
-  width: 100vw;
-  text-align: center;
-}
+
 .isFed {
   background-color: rgb(135, 227, 135);
 }
