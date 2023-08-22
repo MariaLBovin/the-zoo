@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import {useParams} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 import { IAnimal } from '../models/IAnimal'
 import { fetchAnimal } from '../services/animalService'
 import fallbackImg from '../assets/istockphoto-1128826884-612x612.jpg'
@@ -48,7 +48,7 @@ export const Animal = () => {
       const feedingTime = new Date();
       const dateToString = feedingTime.toISOString()
 
-      const feedAnimal :IAnimal = {...animal, isFed: true, lastFed: dateToString};
+      const feedAnimal :IAnimal = {...animal, isFed: true, lastFed: dateToString, feedingMessage: `${animal.name} är mätt`};
 
       const storedData = localStorage.getItem('animalData');
 
@@ -61,6 +61,11 @@ export const Animal = () => {
 
       console.log(feedAnimal);
     }
+  }
+
+  const formatedTime = (isoTime) => {
+    const date = new Date(isoTime);
+    return date.toLocaleString()
   }
   return (
     <>
@@ -75,7 +80,12 @@ export const Animal = () => {
     }}
     />
     <article className='article_singleAnimal'>{animal?.shortDescription}</article>
+    <p>{animal?.lastFed ? `Senaste matningen: ${formatedTime(animal?.lastFed)}` : ''}</p>
+    <p>{animal?.feedingMessage}</p>
     <button onClick ={feedAnimal} disabled={animal?.isFed} >{animal?.isFed ? 'Matad' : 'Mata'}</button>
+    <Link to={'/'}>
+    <button>Tillbaka till listan över djur</button>
+    </Link>
     </div>
     
     </>

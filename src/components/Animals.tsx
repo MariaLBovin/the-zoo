@@ -3,27 +3,39 @@ import { IAnimal } from "../models/IAnimal"
 import { Link } from "react-router-dom"
 import { fetchAnimals } from "../services/animalService"
 import fallbackImg from '../assets/istockphoto-1128826884-612x612.jpg'
+import { updateFeedingTime } from "./timer"
+//import { updateFeedingTime } from "./timer"
 
 
 export const Animals = () => {
-  console.log('test');
-  
-    const [animals, setAnimals] =useState<IAnimal[]>([])
-    
+
+  const [animals, setAnimals] =useState<IAnimal[]>([]);
+
     useEffect(() => {
       const fetchData = async () => {
+      console.log('test');
+      
+      
         try {
           const storedData = localStorage.getItem('animalData');
-  
+          //console.log(storedData);
+          
           if (storedData) {
-            const parsedData = JSON.parse(storedData)
-            setAnimals(parsedData);
-            console.log('data från localStorage', parsedData);
+            const parsedData = JSON.parse(storedData);
+            const updateAnimalsFeedingTime = updateFeedingTime(parsedData);
+            console.log(updateAnimalsFeedingTime);
+            
+            setAnimals(updateAnimalsFeedingTime);
+            // console.log(JSON.stringify(updateAnimalsFeedingTime));
+            
+            localStorage.setItem('animalData', JSON.stringify(updateAnimalsFeedingTime))
+            console.log('data från localStorage', updateAnimalsFeedingTime);
             
           } else {
             const response = await fetchAnimals();
+            console.log(response);
+            
             setAnimals(response);
-  
             localStorage.setItem('animalData', JSON.stringify(response));
             console.log('data från API');
             
@@ -31,38 +43,14 @@ export const Animals = () => {
         } catch (error) {
           console.log('kan inte hämta data', error);
         }
-      };
-  
-      fetchData();
-    }, []);
-    
-    useEffect(() => {
-      const interval = setInterval(() => {
-        const currentTime = new Date();
         
-        const updateAnimals = animals.map((animal) => {
-          if(animal.isFed) {
-            const lastFeedingTime = Date.parse(animal.lastFed);
-            //console.log('senaste matning', animal.name, animal.lastFed);
-
-            //console.log('lastFeedingTime', lastFeedingTime);
-            
-            const timeSinceFed = (currentTime.getTime() - lastFeedingTime) / (1000 * 60 * 60);
-            
-            console.log('timeSinceFed', timeSinceFed);
-            
-            if(timeSinceFed >= 3) {
-              return {...animal, isFed:false}
-            }
-          }
-          return animal
-        });
-        setAnimals(updateAnimals);
-        localStorage.setItem('animalData', JSON.stringify(updateAnimals))
-      }, 5000);
-      return () => clearInterval(interval)
-    }, [animals])
-
+      };
+      
+      fetchData();
+    
+    
+    }, []);
+  
   return (
     <>
     {animals.map((animal) => (
@@ -79,6 +67,7 @@ export const Animals = () => {
               e.currentTarget.src = fallbackImg;
             }}
             />
+            <p>{animal.feedingMessage}</p>
             <Link to={'/animal/' + animal.id}>
               <button>Läs mer</button>
             </Link>
