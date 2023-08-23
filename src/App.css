@@ -1,4 +1,6 @@
 #root {
+  display:flex;
+  flex-direction: column;
   max-width: 1280px;
   height: 100vh;
   margin: 0 auto;
@@ -11,6 +13,7 @@
 .div_animal-wrapper {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   width: 100vw;
 }
 .div_animal {
@@ -20,6 +23,7 @@
   border: 1px solid grey;
   width:25vw;
   border-radius: 5px;
+ 
 }
 .div_singleAnimal {
   display: flex;
@@ -28,7 +32,7 @@
   width: 50vw;
   border: 1px solid grey;
   margin: 0 auto 0 auto;
-  padding-bottom: 10px;
+  padding: 10px;
 
 }
 p {
@@ -48,6 +52,7 @@ button {
 }
 button:hover {
   border-color: #646cff;
+  text-decoration: underline;
 }
 img {
   align-self: center;
@@ -59,5 +64,5 @@ img {
   background-color: rgb(135, 227, 135);
 }
 .isHungry {
-  background-color: rgb(144, 85, 85);
+  background-color: rgb(191, 124, 124);
 }
