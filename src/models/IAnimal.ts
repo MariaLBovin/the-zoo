@@ -3,6 +3,8 @@ export interface IAnimal{
     name: string;
     imageUrl:string;
     shortDescription: string;
+    latinName: string;
+    longDescription: string;
     isFed: boolean;
     lastFed: string;
     feedingMessage: string | null

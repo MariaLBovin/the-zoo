@@ -4,25 +4,24 @@ export const updateFeedingTime = (animals : IAnimal[]) => {
     const currentTime = new Date(); 
     return animals.map((animal) => {
             const lastFeedingTime = Date.parse(animal.lastFed);
-            console.log('senaste matning', animal.name, animal.lastFed);
-
-            //console.log('lastFeedingTime', lastFeedingTime);
-            
             const timeSinceFed = (currentTime.getTime() - lastFeedingTime) / (1000 * 60*60);
-            
-            //console.log('timeSinceFed', timeSinceFed);
+            const timeUntilNextFeeding = 3 - timeSinceFed;
 
+            const hours = Math.floor(timeUntilNextFeeding);
+            const minutes = Math.floor((timeUntilNextFeeding* 60) % 60);
+          
             if (timeSinceFed >= 4) {
               return {...animal, isFed: false, feedingMessage: `${animal.name} behöver matas omgående`}
             
             } else if(timeSinceFed >= 3) {
               return {...animal, isFed:false}
               
+            } else if (timeSinceFed < 3) {
+              return {...animal, isFed:true, feedingMessage: `${animal.name} behöver matas om ${hours} timmar och ${minutes} minuter.`}
+
             } else {
               return {...animal, isFed: true, feedingMessage:`${animal.name} är mätt`}
             }
-            
 
-          return animal
 });
 }

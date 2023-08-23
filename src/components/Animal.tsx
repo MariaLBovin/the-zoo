@@ -9,32 +9,32 @@ export const Animal = () => {
 
   const {id} = useParams<{id:string}>();
     useEffect(() => {
-    const fetchSingleAnimal = async () => {
-      try {
-        const storedData = localStorage.getItem("animalData");
-        if (storedData) {
-          const animals: IAnimal[] = JSON.parse(storedData);
-          const singleAnimal = animals.find((animal) => animal.id.toString() === id);
-          if (singleAnimal) {
-            setAnimal(singleAnimal);
-            //console.log('djur från localStorage', singleAnimal);
+      const fetchSingleAnimal = async () => {
+        try {
+          const storedData = localStorage.getItem("animalData");
+          if (storedData) {
+            const animals: IAnimal[] = JSON.parse(storedData);
+            const singleAnimal = animals.find((animal) => animal.id.toString() === id);
+            if (singleAnimal) {
+              setAnimal(singleAnimal);
+              console.log('djur från localStorage', singleAnimal);
+            } else {
+              console.log("Inget djur hittat i LS");
+            }
           } else {
-            //console.log("Inget djur hittat i LS");
+            if(id){
+              const apiResponse = await fetchAnimal(id); 
+              setAnimal(apiResponse);
+              console.log("Djur från  API");
+            }
+            else {
+              console.log('iget id hittat');
+            }
           }
-        } else {
-          if(id){
-            const apiResponse = await fetchAnimal(id); 
-            setAnimal(apiResponse);
-            //console.log("Djur från  API");
-          }
-          else {
-            //console.log('iget id hittat');
-          }
+        } catch (error) {
+          console.log("kan inte hämta single animal");
         }
-      } catch (error) {
-        //console.log("kan inte hämta single animal");
-      }
-    };
+      };
     fetchSingleAnimal();
 
   }, [id]);
@@ -54,8 +54,6 @@ export const Animal = () => {
         localStorage.setItem('animalData', JSON.stringify(updatedAnimals));
       }
       setAnimal(feedAnimal) 
-
-      console.log(feedAnimal);
     }
   }
 
@@ -68,15 +66,17 @@ export const Animal = () => {
     <>
     <div className='div_singleAnimal'>
     <h3>{animal?.name}</h3>
+    
     <img src={animal?.imageUrl} 
     alt={animal?.name} 
-    style={{ width: '200px', height: 'auto' }}
+    style={{ width: '400px', height: 'auto' }}
     onError = {(e) => {
       e.currentTarget.onerror = null;
       e.currentTarget.src = fallbackImg
     }}
     />
-    <article className='article_singleAnimal'>{animal?.shortDescription}</article>
+    <h4>{animal?.latinName}</h4>
+    <article className='article_singleAnimal'>{animal?.longDescription}</article>
     <p>{animal?.lastFed ? `Senaste matningen: ${formatedTime(animal?.lastFed)}` : ''}</p>
     <p>{animal?.feedingMessage}</p>
     <button onClick ={feedAnimal} disabled={animal?.isFed} >{animal?.isFed ? 'Matad' : 'Mata'}</button>
