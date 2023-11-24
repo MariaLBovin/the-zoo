@@ -1,5 +1,7 @@
 # Digital Zoo Management System
 
+https://marialbovin.github.io/the-zoo/#/
+
 ## Overview
 
 This project involves the creation of a digital zoo where animals require regular feeding intervals. The animal data is retrieved using Axios from an API and stored locally using local storage. The system is designed to update both the individual animal pages and the main homepage when an animal is fed.
