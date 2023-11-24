@@ -1,29 +1,35 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/mzU6KDhq)
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=11560313&assignment_repo_type=AssignmentRepo)
-# React + TypeScript + Vite
+# Digital Zoo Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+This project involves the creation of a digital zoo where animals require regular feeding intervals. The animal data is retrieved using Axios from an API and stored locally using local storage. The system is designed to update both the individual animal pages and the main homepage when an animal is fed.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+### 1. Animal Feeding
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Axios Integration**: The project utilizes Axios to fetch animal data from a designated API.
 
-- Configure the top-level `parserOptions` property like this:
+- **Local Storage**: Animal data is stored locally in the user's browser using local storage, ensuring persistence even if the page is refreshed.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+### 2. Feeding Management
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- **Regular Feeding Intervals**: Animals in the digital zoo require feeding at regular intervals, creating a dynamic and engaging experience.
+
+- **Update Mechanism**: The system ensures that information regarding when an animal was last fed is promptly updated both on the individual animal's page and the main homepage.
+
+### 3. User Interface
+
+- **Individual Animal Pages**: Each animal has its own dedicated page with details such as species, habitat, and last feeding time.
+
+- **Homepage Updates**: The main homepage provides an overview of all the animals in the zoo, with real-time updates on their feeding status.
+
+## Technologies Used
+
+- React
+- Vite
+- HTML5
+- CSS3
+- Typescript
+- Axios for API communication
+- Local Storage for data persistence
