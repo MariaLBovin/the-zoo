@@ -1,5 +1,5 @@
 import { createHashRouter } from "react-router-dom";
-import Animals from "./components/Animals";
+import Animals from "./components/Animals/Animals";
 import Layout from "./components/Layout";
 import Animal from "./components/Animal/Animal";
 
