@@ -1,7 +1,7 @@
 import { createHashRouter } from "react-router-dom";
 import Animals from "./components/Animals";
-import Animal from "./components/Animal";
 import Layout from "./components/Layout";
+import Animal from "./components/Animal/Animal";
 
 export const router = createHashRouter([
 

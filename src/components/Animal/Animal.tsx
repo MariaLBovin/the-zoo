@@ -1,42 +1,23 @@
 import { useEffect, useState } from 'react'
 import {Link, useParams} from 'react-router-dom'
-import { IAnimal } from '../models/IAnimal'
-import { fetchAnimal } from '../services/animalService'
-import fallbackImg from '../assets/istockphoto-1128826884-612x612.jpg'
+
+import fallbackImg from '../../assets/istockphoto-1128826884-612x612.jpg'
+import { IAnimal } from '../../models/IAnimal'
+import { fetchSingleAnimal } from '../../services/animalService'
 
 export const Animal = () => {
-  const [animal, setAnimal] = useState<IAnimal | undefined>()
+  const [animal, setAnimal] = useState<IAnimal | null>()
 
   const {id} = useParams<{id:string}>();
-    useEffect(() => {
-      const fetchSingleAnimal = async () => {
-        try {
-          const storedData = localStorage.getItem("animalData");
-          if (storedData) {
-            const animals: IAnimal[] = JSON.parse(storedData);
-            const singleAnimal = animals.find((animal) => animal.id.toString() === id);
-            if (singleAnimal) {
-              setAnimal(singleAnimal);
-              console.log('djur från localStorage', singleAnimal);
-            } else {
-              console.log("Inget djur hittat i LS");
-            }
-          } else {
-            if(id){
-              const apiResponse = await fetchAnimal(id); 
-              setAnimal(apiResponse);
-              console.log("Djur från  API");
-            }
-            else {
-              console.log('iget id hittat');
-            }
-          }
-        } catch (error) {
-          console.log("kan inte hämta single animal");
-        }
-      };
-    fetchSingleAnimal();
 
+    useEffect(() => {
+    const getAnimal = async () => {
+      if (id) {
+        const result = await fetchSingleAnimal(id);
+        setAnimal(result);
+      }
+    };
+    getAnimal();
   }, [id]);
 
   const feedAnimal = () => {
@@ -57,10 +38,8 @@ export const Animal = () => {
     }
   }
 
-  const formatedTime = (isoTime: string) => {
-    const date = new Date(isoTime);
-    return date.toLocaleString()
-  }
+  const formattedTime = (isoTime: string) => new Date(isoTime).toLocaleString();
+
 
   return (
     <>
@@ -77,7 +56,7 @@ export const Animal = () => {
     />
     <h4>{animal?.latinName}</h4>
     <article className='article_singleAnimal'>{animal?.longDescription}</article>
-    <p>{animal?.lastFed ? `Senaste matningen: ${formatedTime(animal?.lastFed)}` : ''}</p>
+    <p>{animal?.lastFed ? `Senaste matningen: ${formattedTime(animal?.lastFed)}` : ''}</p>
     <p>{animal?.feedingMessage}</p>
     <button onClick ={feedAnimal} disabled={animal?.isFed} >{animal?.isFed ? 'Matad' : 'Mata'}</button>
     <Link to={'/'}>
